@@ -4,11 +4,31 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  <!--calling template 'guestBook' -->
+	{{>guestBook}}
+ 
+  
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<!--template is like a method in java   -->
+<template name="guestBook">
+	<div class='col-xs-3'>
+	<form>
+	  <div class="form-group">
+		<label for="guestName">Name</label>
+		<input type="text" class="form-control" name="guestName"/> 
+	  </div>
+	  <div class="form-group">
+		<label for="guestMessage">Message</label>
+		<textarea name="guestMessage" class="form-control" col="30" rows="4"></textarea>
+	  </div>
+	
+		<button type="submit" class="btn btn-primary">Post Message</button>
+	</form>
+	</div>
+  <!-- for each loop in spacebars-->
+  {{#each messages}}
+	<p><strong>{{name}}</strong> {{message}} - {{createdOn}}</p>
+  {{/each}}
+  
 </template>

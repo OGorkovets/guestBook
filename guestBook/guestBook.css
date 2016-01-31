@@ -1,1 +1,17 @@
 /* CSS declarations go here */
+body {
+	background:yellow;
+}
+label {
+	display: block;
+}
+
+input {
+	color: blue;
+	background: #00FFFF;
+}
+
+textarea {
+	color: blue;
+	background: #00FFFF;
+}
