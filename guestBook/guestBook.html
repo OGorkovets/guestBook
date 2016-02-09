@@ -1,14 +1,13 @@
-<head>
-  <title>guestBook</title>
-</head>
+<template name = "layout">
 
-<body>
-  <h1>Welcome to Meteor!</h1>
-  <!--calling template 'guestBook' -->
-	{{>guestBook}}
- 
-  
-</body>
+	<body>
+	  <h1>Welcome to Meteor!</h1>
+	  <!--calling template 'yield' special template  which returns route results-->
+		{{>yield}}}
+	 
+	  
+	</body>
+</template>
 
 <!--template is like a method in java   -->
 <template name="guestBook">
@@ -28,7 +27,16 @@
 	</div>
   <!-- for each loop in spacebars-->
   {{#each messages}}
-	<p><strong>{{name}}</strong> {{message}} - {{createdOn}}</p>
+	<p><a href="{{pathFor route='message.show'}}"> <strong>{{name}}</strong> </a>{{message}} - {{createdOn}}</p>
   {{/each}}
   
+</template>
+
+<template name = "about">
+	<p>This is an  app created for IT328 in Meteor</p>
+</template>
+
+<template name = "message">
+	<!-- name and message is javaScript object from MongoDB-->
+	<p>{{name}} : {{message}}</p>
 </template>

@@ -1,5 +1,31 @@
 Messages = new Mongo.Collection("messages");
 
+//creating new route to home page 
+//giving 2 parameters path and action
+Router.route('/', function(){
+	this.render('guestBook'); //render guestbook template
+	this.layout('layout'); 		//set the main layout template
+});
+//adding another route
+Router.route('/about', function(){
+	this.render('about');
+	this.layout('layout');
+});
+
+Router.route('/messages/:_id', function(){
+	this.render('message', {
+		data: function(){
+			return Messages.findOne({_id: this.params._id});
+		}
+	});
+	this.layout('layout');	    
+
+	},
+	{
+		name: 'message.show'
+	}
+);
+
 if (Meteor.isClient) {
 	//subscribe client to Mongo DB
 	Meteor.subscribe("messages");
