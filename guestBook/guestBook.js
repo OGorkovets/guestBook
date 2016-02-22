@@ -37,6 +37,11 @@ if (Meteor.isClient) {
 		}
 	});
 	
+	Accounts.ui.config({
+	  //options are listed in book on p.135
+	  passwordSignupFields : "USERNAME_ONLY" //or "USERNAME_AND_EMAIL"
+  });
+	
 	//access gusetBook template object from html fileCreatedDate
 	//and use built-in method events
   Template.guestBook.events(
@@ -80,5 +85,28 @@ if (Meteor.isServer) {
   
   Meteor.publish("messages", function(){
 	  return Messages.find({}, {sort: {createdOn: - 1}}) || {};
+  });
+  Accounts.onCreateUser(function (options, user){
+	  
+	if(options.profile){
+		user.profile = options.profile;
+	}
+	else{
+		user.profile = {};
+	}
+	
+	//default profile settings for a user
+	//when user is first created
+	user.profile.rank = "White belt";
+	user.profile.expirieneYears = 0;
+	
+	//send verification email, if they have an email address
+	if(options.email){
+		Accounts.emailTemplates.siteName = "The Karate Kid Website";
+		Accounts.emailTemplates.from = "Daniel <daniel@karatekid.com>";
+		Accounts.sendVerificationEmail(user._id);
+	}
+	
+	return user;
   });
 }
